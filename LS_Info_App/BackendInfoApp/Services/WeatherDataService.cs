@@ -3,7 +3,6 @@ using BackendInfoApp.Mapper;
 using BackendInfoApp.Repositories;
 using Entities.DTOs.GET;
 using Entities.Entities;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BackendInfoApp.Services {
     public class WeatherDataService {

@@ -1,5 +1,9 @@
-﻿using Common;
+
+
+﻿using Entities;
 using Entities.DTOs.GET;
+using FrontendInfoApp.APIConnection.Interfaces;
+
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IO;
@@ -33,7 +37,11 @@ namespace FrontendInfoApp.APIConnection {
             List<GetWeatherDataDTO> voWeatherData = new List<GetWeatherDataDTO>();
 
             try {
+
                 using (HttpRequestMessage request = PrepareRequest(csAPILink)) {
+
+                using (HttpRequestMessage request = PrepareRequest(csAPILink + "GetRecentWeatherData")) {
+
                     using (HttpResponseMessage response = oClient.GetAsync(request.RequestUri).Result) {
                         if (response.StatusCode == HttpStatusCode.OK) {
                             using (Stream stream = response.Content.ReadAsStream()) {
@@ -70,5 +78,8 @@ namespace FrontendInfoApp.APIConnection {
                 return null;
             }
         }
+
+    
+
     }
 }

@@ -3,11 +3,8 @@ using BackendInfoApp.Mapper;
 using BackendInfoApp.Repositories;
 using BackendInfoApp.Services;
 using Entities.DTOs.GET;
-using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Text.Json;
 
 namespace BackendInfoApp.Controllers {
     [ApiController]
@@ -26,7 +23,6 @@ namespace BackendInfoApp.Controllers {
             string sJsonReturn = JsonConvert.SerializeObject(oLatestWeatherData);
             return Ok(sJsonReturn);
         }
-
 			[HttpGet("Date/{oTime}")]
 			public IActionResult GetWeatherData(DateOnly oTime) {
 				return BadRequest();
