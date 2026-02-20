@@ -17,7 +17,7 @@ namespace BackendInfoApp.Services {
             _logger.LogInformation("WeatherUpdateService gestartet");
             await UpdateWeatherData(stoppingToken);
 
-            using PeriodicTimer oTimer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+            using PeriodicTimer oTimer = new PeriodicTimer(TimeSpan.FromMinutes(5));
             
             try {
                 while (await oTimer.WaitForNextTickAsync(stoppingToken)) {
