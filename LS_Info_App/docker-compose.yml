@@ -11,6 +11,6 @@ services:
     restart: always
     environment:
       POSTGRES_USER: ADMIN
-      POSTGRES_PASSWORD: Ol%YMXZ6mTxa0*L1
+      POSTGRES_PASSWORD: OlYMXZ6mTxa0L1
     ports:
       - "5432:5432"

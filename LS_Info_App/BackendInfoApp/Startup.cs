@@ -11,7 +11,7 @@ namespace BackendInfoApp {
         }
 
         public void ConfigureServices(IServiceCollection oServices) {
-            oServices.AddDbContext<InfoAppDbContext>(options => options.UseNpgsql("Host=127.0.0.1;Port=5432;Database=postgres;Username=postgres;Password=Ol%YMXZ6mTxa0*L1;SSL Mode=disable;Trust Server Certificate=true;Maximum Pool Size=20;Minimum Pool Size=5;Connection Idle Lifetime=300;Connection Lifetime=600"));
+            oServices.AddDbContext<InfoAppDbContext>(options => options.UseNpgsql("Host=127.0.0.1;Port=5432;Database=postgres;Username=ADMIN;postgres;Password=OlYMXZ6mTxa0L1;SSL Mode=disable;Trust Server Certificate=true;Maximum Pool Size=20;Minimum Pool Size=5;Connection Idle Lifetime=300;Connection Lifetime=600"));
 
             oServices.AddControllers();
             oServices.AddEndpointsApiExplorer();
