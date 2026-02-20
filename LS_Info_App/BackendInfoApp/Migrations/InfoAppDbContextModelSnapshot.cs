@@ -60,7 +60,7 @@ namespace BackendInfoApp.Migrations
 
                     b.HasKey("nId");
 
-                    b.ToTable("WeatherData");
+                    b.ToTable("WeatherData", (string)null);
                 });
 #pragma warning restore 612, 618
         }

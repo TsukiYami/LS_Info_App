@@ -63,7 +63,13 @@
 
 
                 <TextBlock x:Name="City" Grid.Row="0" Grid.Column="0" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
-                
+                <TextBlock x:Name="Temperature" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
+                <TextBlock x:Name="Country" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
+                <TextBlock x:Name="WindSpeed" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
+                <TextBlock x:Name="WindDirectory" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
+                <TextBlock x:Name="FeelsLike" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
+                <TextBlock x:Name="ConditionWeather" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
+
 
             </Grid>
         </Border>
