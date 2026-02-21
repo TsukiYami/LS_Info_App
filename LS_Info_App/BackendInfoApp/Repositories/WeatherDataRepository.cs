@@ -24,7 +24,7 @@ namespace BackendInfoApp.Repositories {
         }
 
         public WeatherDataEntity GetWeatherDataService() {
-            return oContext.WeatherData.OrderByDescending(static w => w.nId).FirstOrDefault();
+            return oContext.WeatherData.OrderByDescending(w => w.nId).FirstOrDefault();
         }
 
         public int PostWeatherDataService(WeatherDataEntity oEntity) {

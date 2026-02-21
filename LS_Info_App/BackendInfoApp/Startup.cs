@@ -1,7 +1,9 @@
-﻿using BackendInfoApp.Middleware;
-using BackendInfoApp.DB;
-using Microsoft.EntityFrameworkCore;
+﻿using BackendInfoApp.DB;
+using BackendInfoApp.Mapper;
+using BackendInfoApp.Middleware;
+using BackendInfoApp.Repositories;
 using BackendInfoApp.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackendInfoApp {
     public class Startup {
@@ -12,7 +14,11 @@ namespace BackendInfoApp {
         }
 
         public void ConfigureServices(IServiceCollection oServices) {
-            oServices.AddDbContext<InfoAppDbContext>(options => options.UseNpgsql("Host=127.0.0.1;Port=5432;Database=postgres;Username=ADMIN;Password=ADMIN;SSL Mode=disable;Trust Server Certificate=true;Maximum Pool Size=20;Minimum Pool Size=5;Connection Idle Lifetime=300;Connection Lifetime=600"));
+            oServices.AddDbContext<InfoAppDbContext>(options => options.UseNpgsql("Host=db;Port=5432;Database=postgres;Username=ADMIN;Password=ADMIN;SSL Mode=disable;Trust Server Certificate=true;Maximum Pool Size=20;Minimum Pool Size=5;Connection Idle Lifetime=300;Connection Lifetime=600"));
+
+            oServices.AddScoped<WeatherDataRepository>();
+            oServices.AddScoped<WeatherDataService>();
+            oServices.AddScoped<WeatherDataMapper>();
 
             oServices.AddHostedService<WeatherUpdateService>();
             oServices.AddControllers();

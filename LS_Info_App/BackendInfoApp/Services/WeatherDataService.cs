@@ -14,15 +14,6 @@ namespace BackendInfoApp.Services {
             oMapper = new WeatherDataMapper();
         }
 
-        /*public List<GetWeatherDataDTO> GetAll() {
-            IEnumerable<WeatherDataEntity> voWeatherData = oRepository.GetWeatherDataService();
-            List<GetWeatherDataDTO> voDTOs = new List<GetWeatherDataDTO>();
-            foreach (WeatherDataEntity oEntity in voWeatherData) {
-                voDTOs.Add(oMapper.EntityToGetDTO(oEntity));
-            }
-            return voDTOs;
-        }*/
-
         public GetWeatherDataDTO GetLatest() {
             WeatherDataEntity oEntity = oRepository.GetWeatherDataService();
             if (oEntity == null) {
@@ -30,9 +21,5 @@ namespace BackendInfoApp.Services {
             }
             return oMapper.EntityToGetDTO(oEntity);
         }
-
-        /*public GetWeatherDataDTO GetLatest() {
-            WeatherDataEntity oEntity = oRepository.GetWeatherData();
-        }*/
     }
 }

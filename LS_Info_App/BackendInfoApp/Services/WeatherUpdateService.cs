@@ -1,4 +1,5 @@
 using BackendInfoApp.DB;
+using BackendInfoApp.Repositories;
 using Entities.Entities;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
@@ -32,9 +33,11 @@ namespace BackendInfoApp.Services {
             try {
                 using var oScope = _serviceProvider.CreateScope();
                 var oDbContext = oScope.ServiceProvider.GetRequiredService<InfoAppDbContext>();
+                WeatherDataRepository oRepository = new WeatherDataRepository(oDbContext);
 
-                var oResult = GetWeatherFromApi();
+                WeatherDataEntity? oResult = GetWeatherFromApi();
                 if (oResult != null) {
+                    oRepository.PostWeatherDataService(oResult);
                     _logger.LogInformation($"Wetterdaten aktualisiert: {oResult.sCity}");
                 } else {
                     _logger.LogWarning("Wetterdaten konnten nicht aktualisiert werden");
