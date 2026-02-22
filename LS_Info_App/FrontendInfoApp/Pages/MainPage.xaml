@@ -38,8 +38,7 @@
             <Border
                 Grid.Row="0"
                 Grid.RowSpan="3"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
+                Grid.Column="0"       
                 Margin="6"
                 BorderBrush="White"
                 CornerRadius="7">
@@ -61,15 +60,15 @@
                     <ColumnDefinition Width="100*" />
                 </Grid.ColumnDefinitions>
 
+                <StackPanel Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0">
+                    <TextBlock x:Name="City" Margin="6" FontSize="18" Background="Transparent" Foreground="White" Text="Bremen" />
+                    <TextBlock x:Name="Country" Margin="6" FontSize="14" Background="Transparent" Foreground="White" Text="Deutschland"/>
+                </StackPanel>
+                <Image x:Name="DateTimeIcon" Grid.Row="0" Grid.Column="1" Margin="6" Width="100" Height="50" HorizontalAlignment="Right"/>
 
-                <TextBlock x:Name="City" Grid.Row="0" Grid.Column="0" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
-                <TextBlock x:Name="Temperature" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
-                <TextBlock x:Name="Country" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
-                <TextBlock x:Name="WindSpeed" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
-                <TextBlock x:Name="WindDirectory" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
-                <TextBlock x:Name="FeelsLike" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
-                <TextBlock x:Name="ConditionWeather" Grid.Row="0" Grid.Column="1" Margin="6" FontSize="16" Background="Black" Foreground="White"/>
-
+                <TextBlock x:Name="Temperature" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Margin="6" FontSize="80" Background="Transparent" Foreground="White" Grid.ColumnSpan="1" Text="26°"/>
+                <TextBlock x:Name="ConditionWeather" Grid.Row="3" Grid.Column="0" Margin="6" FontSize="18" Background="Transparent" Foreground="White" Text="Sonnenschein" VerticalAlignment="Top"/>
+                <Image x:Name="IconWeather" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Margin="6" Width="100" Height="100"/>
 
             </Grid>
         </Border>
@@ -88,6 +87,21 @@
                 <SolidColorBrush Opacity="0.6" Color="White" />
             </Border.Background>
 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+                
+                
+                
+                
+            </Grid>
         </Border>
 
         <Border
