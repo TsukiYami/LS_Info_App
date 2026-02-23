@@ -5,6 +5,8 @@
   "WeatherApi": {
     "City": "Bremen",
     "ApiKey": "50e9d5ad77e540c7a9f213153261802",
-    "BaseUrl": "http://api.weatherapi.com/v1/current.json?key="
+    "BaseUrl": "http://api.weatherapi.com/v1/",
+    "current": "current.json?key=",
+    "forecast": "forecast.json?key="
   }
 }
