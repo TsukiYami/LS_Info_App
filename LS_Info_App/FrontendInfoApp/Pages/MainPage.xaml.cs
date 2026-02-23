@@ -50,10 +50,10 @@ namespace FrontendInfoApp.Pages
                 City.Text = weatherData.sCity;
                 Temperature.Text = Convert.ToString(weatherData.dTempC);
                 Country.Text = weatherData.sCountry;
-                WindSpeed.Text = Convert.ToString(weatherData.dWindKph);
-                WindDirectory.Text = weatherData.sWindDir;
-                FeelsLike.Text = Convert.ToString(weatherData.dFeelsLikeC);
-                ConditionWeather.Text = weatherData.sConditionText;
+                //WindSpeed.Text = Convert.ToString(weatherData.dWindKph);
+                //WindDirectory.Text = weatherData.sWindDir;
+                //FeelsLike.Text = Convert.ToString(weatherData.dFeelsLikeC);
+                ConditionWeather.Text = weatherData.sConditionText + "°C";
 
       } catch (Exception ex) {
                 MessageBox.Show("Fehler beim Laden der Wetterdaten: " + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);

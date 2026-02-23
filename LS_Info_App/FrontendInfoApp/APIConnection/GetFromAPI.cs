@@ -15,7 +15,7 @@ namespace FrontendInfoApp.APIConnection {
         private Guid oSessionToken;
         private GetWeatherDataDTO oWeatherData;
 
-        private const string csAPILink = "http://localhost:5193/api/";
+        private const string csAPILink = "http://localhost:8080/api/";
 
         public GetFromAPI() {
             oHandler = new HttpClientHandler();
