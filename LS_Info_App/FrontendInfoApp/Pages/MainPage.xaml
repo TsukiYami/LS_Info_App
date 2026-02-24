@@ -34,18 +34,18 @@
         </Grid.RowDefinitions>
 
 
-        
-            <Border
-                Grid.Row="0"
-                Grid.RowSpan="3"
-                Grid.Column="0"       
-                Margin="6"
-                BorderBrush="White"
-                CornerRadius="7">
 
-                <Border.Background>
-                    <SolidColorBrush Opacity="0.6" Color="White" />
-                </Border.Background>
+        <Border
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="0"
+            Margin="6"
+            BorderBrush="White"
+            CornerRadius="7">
+
+            <Border.Background>
+                <SolidColorBrush Opacity="0.6" Color="White" />
+            </Border.Background>
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -60,19 +60,67 @@
                     <ColumnDefinition Width="100*" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0">
-                    <TextBlock x:Name="City" Margin="6" FontSize="18" Background="Transparent" Foreground="White" Text="" />
-                    <TextBlock x:Name="Country" Margin="6" FontSize="14" Background="Transparent" Foreground="White" Text=""/>
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="1">
+                    <TextBlock
+                        x:Name="City"
+                        Margin="6"
+                        Background="Transparent"
+                        FontSize="18"
+                        Foreground="White"
+                        Text="" />
+                    <TextBlock
+                        x:Name="Country"
+                        Margin="6"
+                        Background="Transparent"
+                        FontSize="14"
+                        Foreground="White"
+                        Text="" />
                 </StackPanel>
-                <Image x:Name="DateTimeIcon" Grid.Row="0" Grid.Column="1" Margin="6" Width="100" Height="50" HorizontalAlignment="Right"/>
+                <Image
+                    x:Name="DateTimeIcon"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Width="100"
+                    Height="50"
+                    Margin="6"
+                    HorizontalAlignment="Right" />
 
-                <TextBlock x:Name="Temperature" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Margin="6" FontSize="80" Background="Transparent" Foreground="White" Grid.ColumnSpan="1" Text=""/>
-                <TextBlock x:Name="ConditionWeather" Grid.Row="3" Grid.Column="0" Margin="6" FontSize="18" Background="Transparent" Foreground="White" Text="" VerticalAlignment="Top"/>
-                <Image x:Name="IconWeather" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Margin="6" Width="100" Height="100"/>
+                <TextBlock
+                    x:Name="Temperature"
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="1"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="50"
+                    Foreground="White"
+                    Text="" />
+                <TextBlock
+                    x:Name="ConditionWeather"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="6"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    FontSize="18"
+                    Foreground="White"
+                    Text="" />
+                <Image
+                    x:Name="IconWeather"
+                    Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Width="100"
+                    Height="100"
+                    Margin="6" />
 
             </Grid>
         </Border>
-        
+
 
 
         <Border
@@ -97,10 +145,29 @@
                     <ColumnDefinition Width="100*" />
                     <ColumnDefinition Width="100*" />
                 </Grid.ColumnDefinitions>
-                
-                
-                
-                
+
+                <TextBlock
+                    x:Name="WindSpeed"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+                <TextBlock
+                    x:Name="WindDirectory"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+
+
             </Grid>
         </Border>
 
@@ -116,6 +183,48 @@
                 <SolidColorBrush Opacity="0.6" Color="White" />
             </Border.Background>
 
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+
+            </Grid>
         </Border>
 
         <Border
@@ -129,7 +238,37 @@
             <Border.Background>
                 <SolidColorBrush Opacity="0.6" Color="White" />
             </Border.Background>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+
+            </Grid>
         </Border>
 
 
@@ -145,6 +284,38 @@
                 <SolidColorBrush Opacity="0.6" Color="White" />
             </Border.Background>
 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+
+            </Grid>
+
         </Border>
 
 
@@ -158,6 +329,30 @@
             <Border.Background>
                 <SolidColorBrush Opacity="0.6" Color="White" />
             </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="6"
+                    Background="Transparent"
+                    FontSize="30"
+                    Foreground="White"
+                    Text="Test" />
+
+            </Grid>
 
         </Border>
 

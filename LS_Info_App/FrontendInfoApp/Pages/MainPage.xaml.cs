@@ -18,26 +18,7 @@ namespace FrontendInfoApp.Pages
     /// </summary>
     public partial class MainPage : Page {
 
-        /*private readonly MainViewModel _vm = new();
-
-
-
-
-        public class MainViewModel
-        {
-            public ObservableCollection<GetWeatherDataDTO> WeatherItems { get; } = new();
-
-            public void Load()
-            {
-                var data = APIService.Instance.Get().WeatherData();
-
-                WeatherItems.Clear();
-
-                if (data != null)
-                    foreach (var item in data)
-                        WeatherItems.Add(item);
-            }
-        }*/
+       
         public MainPage() {
             InitializeComponent();
             LoadWeatherData();
@@ -50,8 +31,8 @@ namespace FrontendInfoApp.Pages
                 City.Text = weatherData.sCity;
                 Temperature.Text = Convert.ToString(weatherData.dTempC);
                 Country.Text = weatherData.sCountry;
-                //WindSpeed.Text = Convert.ToString(weatherData.dWindKph);
-                //WindDirectory.Text = weatherData.sWindDir;
+                WindSpeed.Text = Convert.ToString(weatherData.dWindKph);
+                WindDirectory.Text = weatherData.sWindDir;
                 //FeelsLike.Text = Convert.ToString(weatherData.dFeelsLikeC);
                 ConditionWeather.Text = weatherData.sConditionText + "°C";
 
