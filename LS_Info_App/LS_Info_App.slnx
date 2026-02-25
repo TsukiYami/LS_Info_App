@@ -1,8 +1,5 @@
 <Solution>
   <Project Path="BackendInfoApp/BackendInfoApp.csproj" Id="1ae76f49-1db0-4f17-a36a-0cc12c9f1880" />
-  <Project Path="docker-compose.dcproj">
-    <Build />
-  </Project>
   <Project Path="Entities/Entities.csproj" Id="fdeb7e83-ba7e-464e-a6ad-4a7cf9f2ae1d" />
   <Project Path="FrontendInfoApp/FrontendInfoApp.csproj" Id="ee2372e8-f5e9-400b-87cf-771ab8518f37" />
 </Solution>

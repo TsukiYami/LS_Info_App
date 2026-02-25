@@ -15,9 +15,16 @@ namespace BackendInfoApp.Controllers {
         }
 
         [HttpGet("GetRecentWeatherData")]
-        public IActionResult GetAllWeatherData() {
+        public IActionResult GetRecentWeatherData() {
             GetWeatherDataDTO oWeatherData = oService.GetLatest();
             string sJsonReturn = JsonConvert.SerializeObject(oWeatherData);
+            return Ok(sJsonReturn);
+        }
+
+        [HttpGet("GetWeatherForecastData")]
+        public IActionResult GetWeatherForecastData() {
+            IEnumerable<GetWeatherForecastDataDTO> oWeatherForecastData = oService.GetAllForecasts();
+            string sJsonReturn = JsonConvert.SerializeObject(oWeatherForecastData);
             return Ok(sJsonReturn);
         }
     }

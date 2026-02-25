@@ -21,5 +21,16 @@ namespace BackendInfoApp.Services {
             }
             return oMapper.EntityToGetDTO(oEntity);
         }
+
+        public List<GetWeatherForecastDataDTO> GetAllForecasts() {
+            IEnumerable<WeatherForecastDataEntity> voEntities = oRepository.GetWeatherForecastDataService();
+            List<GetWeatherForecastDataDTO> voDTOs = new List<GetWeatherForecastDataDTO>();
+
+            foreach(WeatherForecastDataEntity oEntity in voEntities) {
+                GetWeatherForecastDataDTO oDTO = oMapper.ForecastEntityToGetDTO(oEntity);
+                voDTOs.Add(oDTO);
+            }
+            return voDTOs;
+        }
     }
 }

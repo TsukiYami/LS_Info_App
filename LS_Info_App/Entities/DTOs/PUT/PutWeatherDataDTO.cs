@@ -1,10 +1,6 @@
-﻿namespace Entities.Entities
-{
-    public class WeatherDataEntity
-    {
-        public WeatherDataEntity() { }
-
-        public WeatherDataEntity(int nId, string sCity, string sCountry, float dTempC, string sConditionText, float dWindKph, string sWindDir, float dFeelsLikeC) {
+﻿namespace Entities.DTOs.PUT {
+    public class PutWeatherDataDTO {
+        public PutWeatherDataDTO(int nId, string sCity, string sCountry, float dTempC, string sConditionText, float dWindKph, string sWindDir, float dFeelsLikeC) {
             this.nId = nId;
             this.sCity = sCity;
             this.sCountry = sCountry;
@@ -15,7 +11,7 @@
             this.dFeelsLikeC = dFeelsLikeC;
         }
 
-        public WeatherDataEntity(string sCity, string sCountry, float dTempC, string sConditionText, float dWindKph, string sWindDir, float dFeelsLikeC) {
+        public PutWeatherDataDTO(string sCity, string sCountry, float dTempC, string sConditionText, float dWindKph, string sWindDir, float dFeelsLikeC) {
             this.sCity = sCity;
             this.sCountry = sCountry;
             this.dTempC = dTempC;
@@ -33,6 +29,6 @@
         public float dWindKph { get; set; }
         public string sWindDir { get; set; }
         public float dFeelsLikeC { get; set; }
-        public DateTime zRecordedAt { get; private set; } = DateTime.UtcNow;
+        public DateTime oRecordedAt { get; set; } = DateTime.UtcNow;
     }
 }

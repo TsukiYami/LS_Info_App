@@ -19,23 +19,32 @@ namespace BackendInfoApp.Repositories {
             return oContext.WeatherData.Find(nID);
         }
 
-        public IEnumerable<WeatherDataEntity> GetAllWeatherDataService() {
-            return oContext.WeatherData;
+        public IEnumerable<WeatherForecastDataEntity> GetWeatherForecastDataService() {
+            return oContext.WeatherForecasts;
         }
 
         public WeatherDataEntity GetWeatherDataService() {
             return oContext.WeatherData.OrderByDescending(w => w.nId).FirstOrDefault();
         }
 
-        public int PostWeatherDataService(WeatherDataEntity oEntity) {
+        /*public async Task PostWeatherDataService(WeatherDataEntity oEntity) {
             EntityEntry<WeatherDataEntity> oEntry = oContext.WeatherData.Add(oEntity);
-            oContext.SaveChanges();
-            return oEntry.Entity.nId;
+            await oContext.SaveChangesAsync();
         }
 
-        public void PutWeatherDataService(WeatherDataEntity oEntity) {
+        public async Task PostWeatherForecastDataService(WeatherForecastDataEntity oEntity) {
+            EntityEntry<WeatherForecastDataEntity> oEntry = oContext.WeatherForecasts.Add(oEntity);
+            await oContext.SaveChangesAsync();
+        }*/
+
+        public async Task PutWeatherDataService(WeatherDataEntity oEntity) {
             oContext.WeatherData.Update(oEntity);
-            oContext.SaveChanges();
+            await oContext.SaveChangesAsync();
+        }
+
+        public async Task PutWeatherForecastDataService(WeatherForecastDataEntity oEntity) {
+            oContext.WeatherForecasts.Update(oEntity);
+            await oContext.SaveChangesAsync();
         }
 
         protected virtual void Dispose(bool bDisposing) {

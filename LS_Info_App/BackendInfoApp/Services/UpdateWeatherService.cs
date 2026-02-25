@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using BackendInfoApp.Mapper;
+using Entities;
+using Entities.Entities;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
@@ -15,9 +17,12 @@ namespace BackendInfoApp.Services {
                 using (HttpRequestMessage request = await PrepareRequest(csAPILink)) {
                     using (HttpResponseMessage response = await oClient.GetAsync(request.RequestUri)) {
                         if (response.IsSuccessStatusCode) {
-                            string jsonResponse = await response.Content.ReadAsStringAsync();
-                            JObject weatherJson = JObject.Parse(jsonResponse);
-
+                            string sJsonResponse = await response.Content.ReadAsStringAsync();
+                            JObject sWeatherJson = JObject.Parse(sJsonResponse);
+                            JObject oCurrentWeather = (JObject)sWeatherJson["current"];
+                            JObject oForecast = (JObject)sWeatherJson["forecast"]["forecastday"][0];
+                            string sJSON = sWeatherJson.ToString();
+                            WeatherForecastDataEntity oWeatherForecastData = WeatherDataMapper.PutForecastDTOToEntity();
                         }
                     }
                 }
