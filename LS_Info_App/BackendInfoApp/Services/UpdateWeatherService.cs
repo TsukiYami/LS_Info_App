@@ -21,6 +21,8 @@ namespace BackendInfoApp.Services {
                             JObject sWeatherJson = JObject.Parse(sJsonResponse);
                             JObject oCurrentWeather = (JObject)sWeatherJson["current"];
                             JObject oForecast = (JObject)sWeatherJson["forecast"]["forecastday"][0];
+                            string sJSONCurrent = oCurrentWeather
+                            
                             string sJSON = sWeatherJson.ToString();
                             WeatherForecastDataEntity oWeatherForecastData = WeatherDataMapper.PutForecastDTOToEntity();
                         }

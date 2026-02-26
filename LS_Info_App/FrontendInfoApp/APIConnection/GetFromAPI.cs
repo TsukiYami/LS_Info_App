@@ -9,11 +9,9 @@ using System.Net.Http;
 using System.Text;
 
 namespace FrontendInfoApp.APIConnection {
-    public class GetFromAPI : IGet {
+    public class GetFromAPI {
         private HttpClientHandler oHandler;
         private HttpClient oClient;
-        private Guid oSessionToken;
-        private GetWeatherDataDTO oWeatherData;
 
         private const string csAPILink = "http://localhost:8080/api/";
 
@@ -28,10 +26,13 @@ namespace FrontendInfoApp.APIConnection {
         }
 
         ~GetFromAPI() {
+            oClient.Dispose();
             oHandler.Dispose();
         }
 
-        public GetWeatherDataDTO WeatherData() {
+        public async Task<GetWeatherDataDTO> WeatherData() {
+            GetWeatherDataDTO oWeatherDeserializedData = null;
+
             try {
                 using (HttpRequestMessage request = PrepareRequest(csAPILink + "GetRecentWeatherData")) {
                     using (HttpResponseMessage response = oClient.GetAsync(request.RequestUri).Result) {
@@ -42,8 +43,7 @@ namespace FrontendInfoApp.APIConnection {
                                     if (MainJson == null) {
                                         throw new Exception("no Text found");
                                     }
-                                    GetWeatherDataDTO oWeatherDeserializedData = JsonConvert.DeserializeObject<GetWeatherDataDTO>(MainJson);
-                                    oWeatherData = oWeatherDeserializedData;
+                                    oWeatherDeserializedData = JsonConvert.DeserializeObject<GetWeatherDataDTO>(MainJson);
                                 }
                             }
                         }
@@ -53,18 +53,40 @@ namespace FrontendInfoApp.APIConnection {
                 Debug.Assert(false);
                 return null;
             }
-            return oWeatherData;
+            return oWeatherDeserializedData;
+        }
+
+        public async Task<List<GetWeatherForecastDataDTO>> WeatherForecastData() {
+            List<GetWeatherForecastDataDTO> voWeatherDeserializedData = null;
+
+            try {
+                using (HttpRequestMessage oRequest = PrepareRequest(csAPILink + "GetWeatherForecastData")) {
+                    using (HttpResponseMessage oResponse = oClient.GetAsync(oRequest.RequestUri).Result) {
+                        if (oResponse.StatusCode == HttpStatusCode.OK) {
+                            using (Stream oStream = oResponse.Content.ReadAsStream()) {
+                                using (StreamReader streamReader = new StreamReader(oStream, Encoding.UTF8)) {
+                                    string MainJson = streamReader.ReadToEnd();
+                                    if (MainJson == null) {
+                                        throw new Exception("no Text found");
+                                    }
+                                    foreach(GetWeatherForecastDataDTO oDTO in JsonConvert.DeserializeObject<List<GetWeatherDataDTO>>(MainJson)) {
+                                        voWeatherDeserializedData.Add(oDTO);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception) {
+                Debug.Assert(false);
+                return null;
+            }
+            return voWeatherDeserializedData;
         }
 
         private HttpRequestMessage PrepareRequest(string sURL) {
             try {
-                oClient = new HttpClient(oHandler);
-
-                using (HttpRequestMessage oRequest = new HttpRequestMessage(HttpMethod.Get, new Uri(sURL))) {
-                    oClient.DefaultRequestHeaders.Add(RequestValues.HEADER_GUID, oSessionToken.ToString());
-
-                    return oRequest;
-                }
+                return new HttpRequestMessage(HttpMethod.Get, new Uri(sURL));
             } catch (HttpRequestException) {
                 Debug.Assert(false);
                 return null;

@@ -1,15 +1,7 @@
 ﻿using Entities.DTOs.GET;
 using FrontendInfoApp.APIConnection;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using Entities.DTOs.GET;
-using Newtonsoft.Json;
-using System.Net;
-
 
 namespace FrontendInfoApp.Pages
 {
@@ -24,17 +16,18 @@ namespace FrontendInfoApp.Pages
             LoadWeatherData();
         }
 
-        public void LoadWeatherData() {
+        public async void LoadWeatherData() {
             try {
-                GetWeatherDataDTO weatherData = APIService.Instance.Get().WeatherData();
-              
-                City.Text = weatherData.sCity;
-                Temperature.Text = Convert.ToString(weatherData.dTempC);
-                Country.Text = weatherData.sCountry;
-                WindSpeed.Text = Convert.ToString(weatherData.dWindKph);
-                WindDirectory.Text = weatherData.sWindDir;
-                //FeelsLike.Text = Convert.ToString(weatherData.dFeelsLikeC);
-                ConditionWeather.Text = weatherData.sConditionText + "°C";
+                GetWeatherDataDTO oWeatherData = await APIService.Instance.Get().WeatherData();
+                List<GetWeatherForecastDataDTO> oWeatherForecastData = await APIService.Instance.Get().WeatherForecastData();
+
+                City.Text = oWeatherData.sCity;
+                Temperature.Text = Convert.ToString(oWeatherData.dTempC);
+                Country.Text = oWeatherData.sCountry;
+                //WindSpeed.Text = Convert.ToString(oWeatherData.dWindKph);
+                //WindDirectory.Text = oWeatherData.sWindDir;
+                //FeelsLike.Text = Convert.ToString(oWeatherData.dFeelsLikeC);
+                ConditionWeather.Text = oWeatherData.sConditionText + "°C";
 
       } catch (Exception ex) {
                 MessageBox.Show("Fehler beim Laden der Wetterdaten: " + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
