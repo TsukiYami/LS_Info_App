@@ -3,49 +3,129 @@ using Entities;
 using Entities.Entities;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using System.Text.Json;
+using BackendInfoApp.DB;
+using BackendInfoApp.Repositories;
+using Entities.DTOs.PUT;
+using Newtonsoft.Json;
 
 namespace BackendInfoApp.Services {
-    public class UpdateWeatherService {
-        private HttpClientHandler oHandler;
-        private HttpClient oClient;
-        private Guid oSessionToken;
-
+    public class UpdateWeatherService : BackgroundService {
         private const string csAPILink = "https://api.weatherapi.com/v1/forecast.json?key=50e9d5ad77e540c7a9f213153261802&q=Bremen&days=3&aqi=no";
+        
+        private readonly IServiceProvider m_oServiceProvider;
+        private readonly ILogger<UpdateWeatherService> m_oLogger;
+        
+        private HttpClientHandler m_oHandler;
+        private HttpClient m_oClient;
+        
+        public UpdateWeatherService(IServiceProvider serviceProvider, ILogger<UpdateWeatherService> logger) {
+            m_oServiceProvider = serviceProvider;
+            m_oLogger = logger;
+            
+            m_oHandler = new HttpClientHandler();
+            m_oHandler.ClientCertificateOptions = ClientCertificateOption.Manual;
+            m_oHandler.ServerCertificateCustomValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 
-        public async Task UpdateWeatherData() {
+            m_oClient = new HttpClient(m_oHandler);
+        }
+
+        ~UpdateWeatherService()
+        {
+            m_oClient.Dispose();    
+            m_oClient.Dispose();
+        }
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
+            m_oLogger.LogInformation("WeatherUpdateService gestartet");
+            UpdateWeatherData(stoppingToken);
+
+            using PeriodicTimer oTimer = new PeriodicTimer(TimeSpan.FromHours(1));
+            
             try {
-                using (HttpRequestMessage request = await PrepareRequest(csAPILink)) {
-                    using (HttpResponseMessage response = await oClient.GetAsync(request.RequestUri)) {
+                while (await oTimer.WaitForNextTickAsync(stoppingToken)) {
+                    await UpdateWeatherData(stoppingToken);
+                }
+            } catch (OperationCanceledException) {
+                m_oLogger.LogInformation("WeatherUpdateService wurde beendet");
+            }
+        }
+        
+        private async Task UpdateWeatherData(CancellationToken stoppingToken) {
+            try {
+                using IServiceScope oScope = m_oServiceProvider.CreateScope();
+                InfoAppDbContext oDbContext = oScope.ServiceProvider.GetRequiredService<InfoAppDbContext>();
+                WeatherDataRepository oRepository = new WeatherDataRepository(oDbContext);
+
+                Tuple<WeatherDataEntity, List<WeatherForecastDataEntity>> oListOfDataEntities = RequestAPI();
+                if (oListOfDataEntities.Item1 != null || oListOfDataEntities.Item2 != null)  {
+                    oRepository.CreateWeatherDataEntry(oListOfDataEntities.Item1);
+                    oRepository.CreateWeatherForecast(oListOfDataEntities.Item2);
+                    m_oLogger.LogInformation("Wetterdaten wurden aktualisiert");
+                } else {
+                    m_oLogger.LogWarning("Wetterdaten konnten nicht aktualisiert werden");
+                }
+            } catch (Exception ex) {
+                m_oLogger.LogError(ex, "Fehler beim Aktualisieren der Wetterdaten");
+            }
+            
+            await Task.CompletedTask;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<WeatherDataEntity, List<WeatherForecastDataEntity>> RequestAPI()
+        {
+            WeatherDataEntity oWeatherData = null;
+            List<WeatherForecastDataEntity> oForecastData = new List<WeatherForecastDataEntity>();
+            try {
+                using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, new Uri(csAPILink))) {
+                    using (HttpResponseMessage response = m_oClient.GetAsync(request.RequestUri).Result) {
                         if (response.IsSuccessStatusCode) {
-                            string sJsonResponse = await response.Content.ReadAsStringAsync();
-                            JObject sWeatherJson = JObject.Parse(sJsonResponse);
-                            JObject oCurrentWeather = (JObject)sWeatherJson["current"];
-                            JObject oForecast = (JObject)sWeatherJson["forecast"]["forecastday"][0];
-                            string sJSONCurrent = oCurrentWeather
+                            string sJsonResponse = response.Content.ReadAsStringAsync().Result;
+
+                            using JsonDocument oDoc = JsonDocument.Parse(sJsonResponse);
+                            var oRoot = oDoc.RootElement;
+
+                            if (!oRoot.TryGetProperty("location", out var oLocation) || !oRoot.TryGetProperty("current", out var oCurrent) || !oRoot.TryGetProperty("forecast", out var oForecastRoot))
+                            {
+                                return null;
+                            }
+
+                            string sCity = oLocation.GetProperty("name").GetString();
+                            string sCountry = oLocation.GetProperty("country").GetString();
+                            float dTempC = (float)oCurrent.GetProperty("temp_c").GetDouble();
+                            string sCondition = oCurrent.GetProperty("condition").GetProperty("text").GetString();
+                            float dWindKph = (float)oCurrent.GetProperty("wind_kph").GetDouble();
+                            string sWindDir = oCurrent.GetProperty("wind_dir").GetString();
+                            float dFeelsLikeC = (float)oCurrent.GetProperty("feelslike_c").GetDouble();
                             
-                            string sJSON = sWeatherJson.ToString();
-                            WeatherForecastDataEntity oWeatherForecastData = WeatherDataMapper.PutForecastDTOToEntity();
+                            oWeatherData = new WeatherDataEntity(dTempC, sCondition, dWindKph, sWindDir, dFeelsLikeC, sCity, sCountry);
+
+                            JArray oForecastDays = JArray.Parse(oForecastRoot.GetProperty("forecastday").GetRawText());
+                            
+                            for (int i = 0; i < oForecastDays.Count; i++)
+                            {
+                                DateTime oForDate = (DateTime)oForecastDays[i].SelectToken("date");
+                                float dMaxTempC = (float)oForecastDays[i].SelectToken("day").SelectToken("maxtemp_c");
+                                float dMinTempC = (float)oForecastDays[i].SelectToken("day").SelectToken("mintemp_c");
+                                float dAvgTempC = (float)oForecastDays[i].SelectToken("day").SelectToken("avgtemp_c");
+                                string sConditionForecast = (string)oForecastDays[i].SelectToken("day").SelectToken("condition").SelectToken("text");
+                                
+                                 oForecastData.Add(new WeatherForecastDataEntity(sConditionForecast,  dMaxTempC,
+                                     dMinTempC, dAvgTempC, oForDate.ToUniversalTime(), sCity, sCountry));
+                            }
                         }
                     }
                 }
             } catch (Exception) {
                 Debug.Assert(false);
             }
-        }
-
-        private async Task<HttpRequestMessage> PrepareRequest(string sURL) {
-            try {
-                oClient = new HttpClient(oHandler);
-
-                using (HttpRequestMessage oRequest = new HttpRequestMessage(HttpMethod.Get, new Uri(sURL))) {
-                    oClient.DefaultRequestHeaders.Add(RequestValues.HEADER_GUID, oSessionToken.ToString());
-
-                    return oRequest;
-                }
-            } catch (HttpRequestException) {
-                Debug.Assert(false);
-                return null;
-            }
+            
+            
+            return new Tuple<WeatherDataEntity, List<WeatherForecastDataEntity>>(oWeatherData, oForecastData);
         }
     }
 }

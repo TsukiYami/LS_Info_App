@@ -1,23 +1,24 @@
 ﻿namespace Entities.DTOs.GET {
-    public class GetWeatherForecastDataDTO : GetWeatherDataDTO {
-        public GetWeatherForecastDataDTO(int nId, string sCity, string sCountry, float dTempC, string sConditionText, float dWindKph, string sWindDir, float dFeelsLikeC, float dMaxTempC, float dMinTempC, float dAvgTempC, int nForeignKey) : base(nId, sCity, sCountry, dTempC, sConditionText, dWindKph, sWindDir, dFeelsLikeC) {
+    public class GetWeatherForecastDataDTO {
+        public GetWeatherForecastDataDTO(int nId, string sCity, string sCountry, string sConditionText, float dMaxTempC, float dMinTempC, float dAvgTempC, DateTime oForDate) {
             this.nId = nId;
             this.sCity = sCity;
             this.sCountry = sCountry;
-            this.dTempC = dTempC;
             this.sConditionText = sConditionText;
-            this.dWindKph = dWindKph;
-            this.sWindDir = sWindDir;
-            this.dFeelsLikeC = dFeelsLikeC;
             this.dMaxTempC = dMaxTempC;
             this.dMinTempC = dMinTempC;
             this.dAvgTempC = dAvgTempC;
-            this.nForeignKey = nForeignKey;
+            this.oForDate = oForDate;
         }
-
+        
+        public int nId { get; protected set; }
+        public string sCity { get; protected set; }
+        public string sCountry { get; protected set; }
+        public string sConditionText { get; protected set; }
+        public DateTime oRecordedAt { get; protected set; } = DateTime.UtcNow;
+        public DateTime oForDate { get; private set; } 
         public float dMaxTempC { get; private set; }
         public float dMinTempC { get; private set; }
         public float dAvgTempC { get; private set; }
-        public int nForeignKey { get; private set; }
     }
 }

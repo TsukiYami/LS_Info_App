@@ -22,15 +22,11 @@ namespace BackendInfoApp.Mapper {
                 oEntity.nId,
                 oEntity.sCity,
                 oEntity.sCountry,
-                oEntity.dTempC,
                 oEntity.sConditionText,
-                oEntity.dWindKph,
-                oEntity.sWindDir,
-                oEntity.dFeelsLikeC,
                 oEntity.dMaxTempC,
                 oEntity.dMinTempC,
                 oEntity.dAvgTempC,
-                oEntity.nForeignKey
+                oEntity.oForDate
             );
         }
 
@@ -49,16 +45,14 @@ namespace BackendInfoApp.Mapper {
 
         public static WeatherForecastDataEntity PutForecastDTOToEntity(PutWeatherForecastDataDTO oDTO) {
             return new WeatherForecastDataEntity(
+                oDTO.nId,
                 oDTO.sCity,
                 oDTO.sCountry,
-                oDTO.dTempC,
                 oDTO.sConditionText,
-                oDTO.dWindKph,
-                oDTO.sWindDir,
-                oDTO.dFeelsLikeC,
                 oDTO.dMaxTempC,
                 oDTO.dMinTempC,
-                oDTO.dAvgTempC
+                oDTO.dAvgTempC,
+                oDTO.oForDate
             );
         }
     }

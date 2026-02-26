@@ -15,7 +15,7 @@ namespace BackendInfoApp.Services {
         }
 
         public GetWeatherDataDTO GetLatest() {
-            WeatherDataEntity oEntity = oRepository.GetWeatherDataService();
+            WeatherDataEntity oEntity = oRepository.GetNewestWeatherData();
             if (oEntity == null) {
                 return null;
             }
@@ -23,7 +23,7 @@ namespace BackendInfoApp.Services {
         }
 
         public List<GetWeatherForecastDataDTO> GetAllForecasts() {
-            IEnumerable<WeatherForecastDataEntity> voEntities = oRepository.GetWeatherForecastDataService();
+            IEnumerable<WeatherForecastDataEntity> voEntities = oRepository.GetAllWeatherForcasts();
             List<GetWeatherForecastDataDTO> voDTOs = new List<GetWeatherForecastDataDTO>();
 
             foreach(WeatherForecastDataEntity oEntity in voEntities) {
