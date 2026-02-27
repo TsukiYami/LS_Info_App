@@ -57,7 +57,7 @@ namespace FrontendInfoApp.APIConnection {
         }
 
         public async Task<List<GetWeatherForecastDataDTO>> WeatherForecastData() {
-            List<GetWeatherForecastDataDTO> voWeatherDeserializedData = null;
+            List<GetWeatherForecastDataDTO> voWeatherDeserializedData = new List<GetWeatherForecastDataDTO>();
 
             try {
                 using (HttpRequestMessage oRequest = PrepareRequest(csAPILink + "GetWeatherForecastData")) {
@@ -69,7 +69,7 @@ namespace FrontendInfoApp.APIConnection {
                                     if (MainJson == null) {
                                         throw new Exception("no Text found");
                                     }
-                                    foreach(GetWeatherForecastDataDTO oDTO in JsonConvert.DeserializeObject<List<GetWeatherDataDTO>>(MainJson)) {
+                                    foreach(GetWeatherForecastDataDTO oDTO in JsonConvert.DeserializeObject<List<GetWeatherForecastDataDTO>>(MainJson)) {
                                         voWeatherDeserializedData.Add(oDTO);
                                     }
                                 }

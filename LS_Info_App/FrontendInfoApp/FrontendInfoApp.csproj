@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Dateien\Cloudy.png" />
+    <None Remove="Dateien\Foggy.png" />
+    <None Remove="Dateien\Storm.png" />
+    <None Remove="Dateien\Sunny.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
@@ -17,7 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dateien\" />
+    <Resource Include="Dateien\Cloudy.png" />
+    <Resource Include="Dateien\Foggy.png" />
+    <Resource Include="Dateien\Storm.png" />
+    <Resource Include="Dateien\Sunny.png" />
   </ItemGroup>
 
 </Project>
