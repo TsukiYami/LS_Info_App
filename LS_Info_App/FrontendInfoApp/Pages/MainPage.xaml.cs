@@ -33,55 +33,55 @@ namespace FrontendInfoApp.Pages
         }
 
         City.Text = oWeatherData.sCity;
-        Temperature.Text = Convert.ToString(oWeatherData.dTempC);
+        Temperature.Text = Convert.ToString(oWeatherData.dTempC + "°C");
         Country.Text = oWeatherData.sCountry;
-        WindSpeed.Text = Convert.ToString(oWeatherData.dWindKph);
+        WindSpeed.Text = Convert.ToString(oWeatherData.dWindKph + " km/h");
         WindDirectory.Text = oWeatherData.sWindDir;
-        FeelsLike.Text = Convert.ToString(oWeatherData.dFeelsLikeC);
-        ConditionWeather.Text = oWeatherData.sConditionText + "°C";
+        FeelsLike.Text = Convert.ToString(oWeatherData.dFeelsLikeC + "°C");
+        ConditionWeather.Text = oWeatherData.sConditionText;
 
-        //SetWeatherBackground(oWeatherData.sConditionText);
+        ConditionWeather.Text = oWeatherData.sConditionText;
 
-      }
+                string condition = oWeatherData.sConditionText.ToLower();
+
+                if (condition.Contains("sun") || condition.Contains("Partly Cloudy"))
+                {
+                    SetBackground("sunny.png");
+                }
+                else if (condition.Contains("rain"))
+                {
+                    SetBackground("storm.png");
+                }
+                else if (condition.Contains("fog"))
+                {
+                    SetBackground("foggy.png");
+                }
+                else if (condition.Contains("storm") || condition.Contains("thunder"))
+                {
+                    SetBackground("storm.png");
+                }
+                else
+                {
+                    SetBackground("sunny.png"); 
+                }
+
+            }
       catch (Exception ex)
       {
         MessageBox.Show("Fehler beim Laden der Wetterdaten: " + ex.Message, "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
       }
     }
 
-    /*private void SetWeatherBackground(string? conditionText)
-    {
-      var c = (conditionText ?? "").Trim().ToLowerInvariant();
+        private void SetBackground(string fileName)
+        {
+            var uri = new Uri($"pack://application:,,,/Dateien/{fileName}", UriKind.Absolute);
 
-      string imagePath = c switch
-      {
-        // Sonne
-        var s when s.Contains("sunny") || s.Contains("clear")
-            => "/Dateien/Sunny.png",
+            MainGrid.Background = new ImageBrush(new BitmapImage(uri))
+            {
+                Stretch = Stretch.UniformToFill
+            };
+        }
 
-        // Bewölkt
-        var s when s.Contains("cloudy") || s.Contains("overcast")
-            => "/Dateien/Cloudy.png",
 
-        // Nebel
-        var s when s.Contains("foggy") || s.Contains("mist") || s.Contains("haze")
-            => "/Dateien/Foggy.png",
-
-        // Gewitter
-        var s when s.Contains("thunder") || s.Contains("storm")
-            => "/Dateien/Storm.png",
-
-        // Fallback
-        _ => "/Dateien/Cloudy.png"
-      };
-
-      var brush = new ImageBrush
-      {
-        ImageSource = new BitmapImage(new Uri(imagePath, UriKind.Relative)),
-        Stretch = Stretch.UniformToFill
-      };
-
-      MainGrid.Background = brush;   
-    }*/
-  }
+    }
 }

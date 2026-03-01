@@ -10,8 +10,22 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
+    <Page.Resources>
+
+        <Style TargetType="ScrollBar">
+            <Setter Property="Width" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Visibility" Value="Hidden"/>
+        </Style>
+
+        <Style TargetType="Thumb">
+            <Setter Property="Background" Value="#AAAAAA"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+
+    </Page.Resources>
+
     <Grid x:Name="MainGrid">
-       
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*" />
@@ -27,8 +41,7 @@
             <RowDefinition Height="100*" />
         </Grid.RowDefinitions>
 
-
-
+        <!-- Aktuelles Wetter -->
         <Border
             Grid.Row="0"
             Grid.RowSpan="3"
@@ -38,87 +51,88 @@
             CornerRadius="7">
 
             <Border.Background>
-                <SolidColorBrush Opacity="0.6" Color="White" />
+                <SolidColorBrush Opacity="0.6" Color="#3F3F46" />
             </Border.Background>
 
-            <Grid>
+            <!-- Layout -->
+            <Grid Margin="6">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100*" />
-                    <RowDefinition Height="100*" />
-                    <RowDefinition Height="100*" />
-                    <RowDefinition Height="100*" />
-                    <RowDefinition Height="100*" />
-                    <RowDefinition Height="100*" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100*" />
-                    <ColumnDefinition Width="100*" />
-                </Grid.ColumnDefinitions>
+                
 
+                <!-- Stadt, Land -->
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <TextBlock
+                        x:Name="City"
+                        Background="Transparent"
+                        FontSize="18"
+                        Foreground="White"
+                        TextWrapping="Wrap"
+                        Margin="0,0,0,2"
+                        VerticalAlignment="Top"/>
 
-                <TextBlock
-                    x:Name="City"
-                    Margin="6"
-                    Background="Transparent"
-                    FontSize="18"
-                    Foreground="White" 
-                    Grid.Row="0"
-                    VerticalAlignment="Top"/>
-                <TextBlock
-                    x:Name="Country"
-                    Margin="6"                  
-                    Background="Transparent"
-                    FontSize="10"
-                    Foreground="White" 
-                    Grid.Row="0"
-                    VerticalAlignment="Bottom"/>
+                    <TextBlock
+                        x:Name="Country"
+                        Background="Transparent"
+                        FontSize="12"
+                        Foreground="White"
+                        Opacity="0.9"
+                        TextWrapping="Wrap"
+                        VerticalAlignment="Top"/>
+                </StackPanel>
 
-                <TextBlock
-                    x:Name="Temperature"
-                    Grid.Row="1"
-                    Grid.RowSpan="1"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="1"
-                    Margin="6"
-                    Background="Transparent"
-                    FontSize="40"
-                    Foreground="White"
-                    Text="" />
-                <TextBlock
-                    x:Name="ConditionWeather"
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Margin="6"
-                    VerticalAlignment="Top"
-                    Background="Transparent"
-                    FontSize="18"
-                    Foreground="White"
-                    Text="" />
+                <!-- Temperatur-->
+                <Viewbox Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,8,0,8">
+                    <TextBlock
+                        x:Name="Temperature"
+                        Background="Transparent"
+                        FontSize="38"
+                        Foreground="White"
+                        Text=""/>
+                </Viewbox>
 
-                <TextBlock
-                    x:Name="FeelsLike"
-                    Grid.Row="2"
-                    Margin="6"
-                    VerticalAlignment="Bottom"
-                    Background="Transparent"
-                    FontSize="14"
-                    Foreground="White" />
+                <!-- Condition, FeelsLike -->
+                <StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Bottom" Margin="0,6,0,0">
 
-                <Image
-                    x:Name="IconWeather"
-                    Grid.Row="1"
-                    Grid.RowSpan="2"
-                    Grid.Column="1"
-                    Width="100"
-                    Height="100"
-                    Margin="6" />
+                    <TextBlock
+                        Text="Condition:"
+                        FontSize="13"
+                        Foreground="White"
+                        Opacity="0.8"/>
 
+                    <TextBlock
+                        x:Name="ConditionWeather"
+                        Background="Transparent"
+                        FontSize="18"
+                        Foreground="White"
+                        TextWrapping="Wrap"
+                        Margin="0,0,0,4"
+                        Text=""/>
+
+                    <TextBlock
+                        Text="Feels like: "
+                        FontSize="13"
+                        Foreground="White"
+                        Opacity="0.8"/>
+
+                    <TextBlock
+                        x:Name="FeelsLike"
+                        Background="Transparent"
+                        FontSize="18"
+                        Foreground="White"
+                        Opacity="0.95"
+                        TextWrapping="Wrap"/>
+                </StackPanel>
             </Grid>
         </Border>
 
-
-
+        <!-- Wind -->
         <Border
             Grid.Row="3"
             Grid.RowSpan="2"
@@ -128,10 +142,10 @@
             CornerRadius="7">
 
             <Border.Background>
-                <SolidColorBrush Opacity="0.6" Color="White" />
+                <SolidColorBrush Opacity="0.6" Color="#3F3F46" />
             </Border.Background>
 
-            <Grid>
+            <Grid Margin="6">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100*" />
                     <RowDefinition Height="100*" />
@@ -142,31 +156,58 @@
                     <ColumnDefinition Width="100*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock
+                    <Path
+                    Fill="White"
+                    Stretch="Uniform"
+                    Grid.Column="2"
+                    Width="80"
+                    Height="80"
+                    Grid.RowSpan="2"
+                    Data="M7,17L10.2,10.2L17,7L13.8,13.8L7,17M12,11.1A0.9,0.9 0 0,0 11.1,12A0.9,0.9 0 0,0 12,12.9A0.9,0.9 0 0,0 12.9,12A0.9,0.9 0 0,0 12,11.1M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"/>
+
+                <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Top" Margin="0,6,0,0" Grid.RowSpan="2">
+
+                    <TextBlock
+                        Text="Wind Speed:"
+                        FontSize="13"
+                        Foreground="White"
+                        Opacity="0.8"/>
+
+                    <TextBlock
                     x:Name="WindSpeed"
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Margin="6"
                     Background="Transparent"
-                    FontSize="30"
+                    FontSize="24"
                     Foreground="White"
                     Text="Test" />
-                <TextBlock
+
+                    <TextBlock
+                    Text="Wind Directory:"
+                    FontSize="13"
+                    Foreground="White"
+                    Opacity="0.8"/>
+
+                    <TextBlock
                     x:Name="WindDirectory"
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Margin="6"
                     Background="Transparent"
-                    FontSize="30"
+                    FontSize="24"
                     Foreground="White"
-                    Text="Test" />
+                    Text="Test" /> 
+                    
+                </StackPanel>
 
-
+                
             </Grid>
         </Border>
 
+        <!-- Forecast -->
         <Border
             Grid.Row="0"
             Grid.RowSpan="5"
@@ -176,9 +217,8 @@
             CornerRadius="7">
 
             <Border.Background>
-                <SolidColorBrush Opacity="0.6" Color="White" />
+                <SolidColorBrush Opacity="0.6" Color="#3F3F46" />
             </Border.Background>
-
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -192,19 +232,20 @@
                     <ColumnDefinition Width="100*" />
                 </Grid.ColumnDefinitions>
 
-
                 <ListBox
                     x:Name="WeatherForecastList"
                     Grid.RowSpan="3"
                     Grid.ColumnSpan="2"
                     Margin="6"
                     Background="Transparent"
-                    FontSize="11"
-                    Foreground="White" />
-
+                    FontSize="10"
+                    Foreground="White"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    />
             </Grid>
         </Border>
 
+        <!-- Noch in Planung -->
         <Border
             Grid.Row="0"
             Grid.RowSpan="2"
@@ -214,9 +255,10 @@
             CornerRadius="7">
 
             <Border.Background>
-                <SolidColorBrush Opacity="0.6" Color="White" />
+                <SolidColorBrush Opacity="0.6" Color="#3F3F46" />
             </Border.Background>
-            <Grid>
+
+            <Grid Margin="6">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100*" />
                     <RowDefinition Height="100*" />
@@ -236,6 +278,7 @@
                     FontSize="30"
                     Foreground="White"
                     Text="Test" />
+
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
@@ -245,12 +288,10 @@
                     FontSize="30"
                     Foreground="White"
                     Text="Test" />
-
-
             </Grid>
         </Border>
 
-
+        <!-- Noch in Planung -->
         <Border
             Grid.Row="2"
             Grid.RowSpan="2"
@@ -260,10 +301,10 @@
             CornerRadius="7">
 
             <Border.Background>
-                <SolidColorBrush Opacity="0.6" Color="White" />
+                <SolidColorBrush Opacity="0.6" Color="#3F3F46" />
             </Border.Background>
 
-            <Grid>
+            <Grid Margin="6">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100*" />
                     <RowDefinition Height="100*" />
@@ -283,6 +324,7 @@
                     FontSize="30"
                     Foreground="White"
                     Text="Test" />
+
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
@@ -292,12 +334,10 @@
                     FontSize="30"
                     Foreground="White"
                     Text="Test" />
-
             </Grid>
-
         </Border>
 
-
+        <!-- Noch in Planung -->
         <Border
             Grid.Row="4"
             Grid.Column="2"
@@ -306,10 +346,10 @@
             CornerRadius="7">
 
             <Border.Background>
-                <SolidColorBrush Opacity="0.6" Color="White" />
+                <SolidColorBrush Opacity="0.6" Color="#3F3F46" />
             </Border.Background>
 
-            <Grid>
+            <Grid Margin="6">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100*" />
                     <RowDefinition Height="100*" />
@@ -330,9 +370,7 @@
                     FontSize="30"
                     Foreground="White"
                     Text="Test" />
-
             </Grid>
-
         </Border>
 
     </Grid>
