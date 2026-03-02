@@ -59,7 +59,7 @@ namespace BackendInfoApp.Services {
 
                 Tuple<WeatherDataEntity, List<WeatherForecastDataEntity>> oListOfDataEntities = RequestAPI();
                 if (oListOfDataEntities.Item1 != null || oListOfDataEntities.Item2 != null)  {
-                    if (false) { //oRepository.GetByID(49)) {
+                    if (oRepository.GetByID(49)) {
                         oRepository.UpdateWeatherData(oListOfDataEntities.Item1);
                         foreach (WeatherForecastDataEntity oEntity in oListOfDataEntities.Item2) {
                             oRepository.UpdateWeatherForcast(oEntity);
