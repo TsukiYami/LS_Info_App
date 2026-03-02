@@ -15,11 +15,14 @@ namespace BackendInfoApp.Repositories {
             Dispose();
         }
 
-        public WeatherDataEntity GetByID(int nID) {
-            return oContext.WeatherData.Find(nID);
+        public bool GetByID(int nID) {
+            if (oContext.WeatherData.Find(nID) != null) { 
+                return true;
+            }
+            return false;
         }
 
-        public IEnumerable<WeatherForecastDataEntity> GetAllWeatherForcasts() {
+        public IEnumerable<WeatherForecastDataEntity> GetAllWeatherForecasts() {
             return oContext.WeatherForecasts;
         }
 
@@ -58,14 +61,14 @@ namespace BackendInfoApp.Repositories {
         
         public WeatherDataEntity  UpdateWeatherData(WeatherDataEntity oEntity) {
             EntityEntry<WeatherDataEntity> oEntry = oContext.WeatherData.Update(oEntity);
-            oContext.SaveChangesAsync();
+            oContext.SaveChanges();
             
             return oEntry.Entity;
         }
 
         public WeatherForecastDataEntity UpdateWeatherForcast(WeatherForecastDataEntity oEntity) {
             EntityEntry<WeatherForecastDataEntity> oEntry = oContext.WeatherForecasts.Update(oEntity);
-            oContext.SaveChangesAsync();
+            oContext.SaveChanges();
             
             return  oEntry.Entity;
         }

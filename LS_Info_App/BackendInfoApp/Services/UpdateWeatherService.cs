@@ -59,8 +59,15 @@ namespace BackendInfoApp.Services {
 
                 Tuple<WeatherDataEntity, List<WeatherForecastDataEntity>> oListOfDataEntities = RequestAPI();
                 if (oListOfDataEntities.Item1 != null || oListOfDataEntities.Item2 != null)  {
-                    oRepository.CreateWeatherDataEntry(oListOfDataEntities.Item1);
-                    oRepository.CreateWeatherForecast(oListOfDataEntities.Item2);
+                    if (false) { //oRepository.GetByID(49)) {
+                        oRepository.UpdateWeatherData(oListOfDataEntities.Item1);
+                        foreach (WeatherForecastDataEntity oEntity in oListOfDataEntities.Item2) {
+                            oRepository.UpdateWeatherForcast(oEntity);
+                        }
+                    } else {
+                        oRepository.CreateWeatherDataEntry(oListOfDataEntities.Item1);
+                        oRepository.CreateWeatherForecast(oListOfDataEntities.Item2);
+                    }
                     m_oLogger.LogInformation("Wetterdaten wurden aktualisiert");
                 } else {
                     m_oLogger.LogWarning("Wetterdaten konnten nicht aktualisiert werden");

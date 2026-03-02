@@ -23,7 +23,7 @@ namespace BackendInfoApp.Services {
         }
 
         public List<GetWeatherForecastDataDTO> GetAllForecasts() {
-            IEnumerable<WeatherForecastDataEntity> voEntities = oRepository.GetAllWeatherForcasts();
+            IEnumerable<WeatherForecastDataEntity> voEntities = oRepository.GetAllWeatherForecasts();
             List<GetWeatherForecastDataDTO> voDTOs = new List<GetWeatherForecastDataDTO>();
 
             foreach(WeatherForecastDataEntity oEntity in voEntities) {
