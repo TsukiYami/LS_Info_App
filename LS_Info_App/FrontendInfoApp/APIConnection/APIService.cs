@@ -1,5 +1,8 @@
 ﻿namespace FrontendInfoApp.APIConnection {
     public class APIService {
+        /// <summary>
+        /// Implementation vom Singleton Pattern, als Vorbereitung auf spätere Anpassungswünsche
+        /// </summary>
         private static readonly Lazy<APIService> instance =
         new Lazy<APIService>(() => new APIService());
 

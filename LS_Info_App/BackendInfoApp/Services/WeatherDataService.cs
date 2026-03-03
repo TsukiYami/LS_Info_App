@@ -14,6 +14,10 @@ namespace BackendInfoApp.Services {
             oMapper = new WeatherDataMapper();
         }
 
+        /// <summary>
+        /// Die aktuellsten Wetterdaten aus der Datenbank abrufen.
+        /// </summary>
+        /// <returns></returns>
         public GetWeatherDataDTO GetLatest() {
             WeatherDataEntity oEntity = oRepository.GetNewestWeatherData();
             if (oEntity == null) {
@@ -22,6 +26,10 @@ namespace BackendInfoApp.Services {
             return oMapper.EntityToGetDTO(oEntity);
         }
 
+        /// <summary>
+        /// Alle Wettervorhersagedaten aus der Datenbank abrufen.
+        /// </summary>
+        /// <returns></returns>
         public List<GetWeatherForecastDataDTO> GetAllForecasts() {
             IEnumerable<WeatherForecastDataEntity> voEntities = oRepository.GetAllWeatherForecasts();
             List<GetWeatherForecastDataDTO> voDTOs = new List<GetWeatherForecastDataDTO>();

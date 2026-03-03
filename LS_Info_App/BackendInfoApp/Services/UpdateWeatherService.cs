@@ -1,13 +1,9 @@
-﻿using BackendInfoApp.Mapper;
-using Entities;
-using Entities.Entities;
+﻿using Entities.Entities;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Text.Json;
 using BackendInfoApp.DB;
 using BackendInfoApp.Repositories;
-using Entities.DTOs.PUT;
-using Newtonsoft.Json;
 
 namespace BackendInfoApp.Services {
     public class UpdateWeatherService : BackgroundService {
@@ -36,6 +32,12 @@ namespace BackendInfoApp.Services {
             m_oClient.Dispose();
         }
 
+        /// <summary>
+        /// Mini Dienst, damit die Wetterdaten regelmäßig aktualisiert werden.
+        /// Er startet direkt mit dem Abrufen der Daten und aktualisiert diese dann stündlich.
+        /// </summary>
+        /// <param name="stoppingToken"></param>
+        /// <returns></returns>
         protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
             m_oLogger.LogInformation("WeatherUpdateService gestartet");
             UpdateWeatherData(stoppingToken);
@@ -50,7 +52,12 @@ namespace BackendInfoApp.Services {
                 m_oLogger.LogInformation("WeatherUpdateService wurde beendet");
             }
         }
-        
+
+        /// <summary>
+        /// Wetterdaten werden von der API abgerufen und in die Datenbank eingetragen oder aktualisiert, je nachdem ob bereits Daten vorhanden sind oder nicht.
+        /// </summary>
+        /// <param name="stoppingToken"></param>
+        /// <returns></returns>
         private async Task UpdateWeatherData(CancellationToken stoppingToken) {
             try {
                 using IServiceScope oScope = m_oServiceProvider.CreateScope();
@@ -59,7 +66,7 @@ namespace BackendInfoApp.Services {
 
                 Tuple<WeatherDataEntity, List<WeatherForecastDataEntity>> oListOfDataEntities = RequestAPI();
                 if (oListOfDataEntities.Item1 != null || oListOfDataEntities.Item2 != null)  {
-                    if (oRepository.GetByID(49)) {
+                    if (oRepository.GetNewestWeatherDataBool()) {
                         oRepository.UpdateWeatherData(oListOfDataEntities.Item1);
                         foreach (WeatherForecastDataEntity oEntity in oListOfDataEntities.Item2) {
                             oRepository.UpdateWeatherForcast(oEntity);
@@ -78,9 +85,10 @@ namespace BackendInfoApp.Services {
             
             await Task.CompletedTask;
         }
-        
+
         /// <summary>
-        /// 
+        /// HttpRequest wird an die API gesendet, um die aktuellen Wetterdaten und die Wettervorhersage zu erhalten.
+        /// Diese werden dann in WeatherDataEntity und List<WeatherForecastDataEntity> umgewandelt und zurückgegeben.
         /// </summary>
         /// <returns></returns>
         public Tuple<WeatherDataEntity, List<WeatherForecastDataEntity>> RequestAPI()
@@ -130,8 +138,6 @@ namespace BackendInfoApp.Services {
             } catch (Exception) {
                 Debug.Assert(false);
             }
-            
-            
             return new Tuple<WeatherDataEntity, List<WeatherForecastDataEntity>>(oWeatherData, oForecastData);
         }
     }

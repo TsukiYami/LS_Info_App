@@ -4,6 +4,12 @@ using Entities.Entities;
 
 namespace BackendInfoApp.Mapper {
     public class WeatherDataMapper {
+
+        /// <summary>
+        /// Ändert die Daten von einem Entity in ein GetDTO um.
+        /// </summary>
+        /// <param name="oEntity"></param>
+        /// <returns></returns>
         public GetWeatherDataDTO EntityToGetDTO(WeatherDataEntity oEntity) {
             return new GetWeatherDataDTO(
                 oEntity.nId,
@@ -17,16 +23,21 @@ namespace BackendInfoApp.Mapper {
             );
         }
 
-        public GetWeatherForecastDataDTO ForecastEntityToGetDTO(WeatherForecastDataEntity oEntity) {
+        /// <summary>
+        /// Ändert die Daten von einem Entity in ein GetDTO um.
+        /// </summary>
+        /// <param name="oForecastEntity"></param>
+        /// <returns></returns>
+        public GetWeatherForecastDataDTO ForecastEntityToGetDTO(WeatherForecastDataEntity oForecastEntity) {
             return new GetWeatherForecastDataDTO (
-                oEntity.nId,
-                oEntity.sCity,
-                oEntity.sCountry,
-                oEntity.sConditionText,
-                oEntity.dMaxTempC,
-                oEntity.dMinTempC,
-                oEntity.dAvgTempC,
-                oEntity.oForDate
+                oForecastEntity.nId,
+                oForecastEntity.sCity,
+                oForecastEntity.sCountry,
+                oForecastEntity.sConditionText,
+                oForecastEntity.dMaxTempC,
+                oForecastEntity.dMinTempC,
+                oForecastEntity.dAvgTempC,
+                oForecastEntity.oForDate
             );
         }
 
@@ -43,7 +54,7 @@ namespace BackendInfoApp.Mapper {
             );
         }
 
-        public static WeatherForecastDataEntity PutForecastDTOToEntity(PutWeatherForecastDataDTO oDTO) {
+        public WeatherForecastDataEntity PutForecastDTOToEntity(PutWeatherForecastDataDTO oDTO) {
             return new WeatherForecastDataEntity(
                 oDTO.nId,
                 oDTO.sCity,

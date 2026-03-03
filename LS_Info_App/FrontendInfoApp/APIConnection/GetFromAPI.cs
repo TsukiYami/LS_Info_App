@@ -30,6 +30,10 @@ namespace FrontendInfoApp.APIConnection {
             oHandler.Dispose();
         }
 
+        /// <summary>
+        /// Wetterdaten werden von der API abgerufen und an die aufrufende Methode zurückgegeben
+        /// </summary>
+        /// <returns></returns>
         public async Task<GetWeatherDataDTO> WeatherData() {
             GetWeatherDataDTO oWeatherDeserializedData = null;
 
@@ -56,6 +60,10 @@ namespace FrontendInfoApp.APIConnection {
             return oWeatherDeserializedData;
         }
 
+        /// <summary>
+        /// Wettervorhersagedaten werden von der API abgerufen und an die aufrufende Methode zurückgegeben
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<GetWeatherForecastDataDTO>> WeatherForecastData() {
             List<GetWeatherForecastDataDTO> voWeatherDeserializedData = new List<GetWeatherForecastDataDTO>();
 
@@ -84,6 +92,11 @@ namespace FrontendInfoApp.APIConnection {
             return voWeatherDeserializedData;
         }
 
+        /// <summary>
+        /// HttpRequest wird an die API gesendet, um die aktuellen Wetterdaten und die Wettervorhersage zu erhalten.
+        /// </summary>
+        /// <param name="sURL"></param>
+        /// <returns></returns>
         private HttpRequestMessage PrepareRequest(string sURL) {
             try {
                 return new HttpRequestMessage(HttpMethod.Get, new Uri(sURL));

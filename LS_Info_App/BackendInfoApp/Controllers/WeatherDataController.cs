@@ -14,6 +14,10 @@ namespace BackendInfoApp.Controllers {
             oService = new WeatherDataService(oContext);
         }
 
+        /// <summary>
+        /// API Endpunkt um die aktuellsten Wetterdaten abzurufen.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetRecentWeatherData")]
         public IActionResult GetRecentWeatherData() {
             GetWeatherDataDTO oWeatherData = oService.GetLatest();
@@ -21,6 +25,10 @@ namespace BackendInfoApp.Controllers {
             return Ok(sJsonReturn);
         }
 
+        /// <summary>
+        /// API Endpunkt um die Wettervorhersagedaten der nächsten Tage abzurufen.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetWeatherForecastData")]
         public IActionResult GetWeatherForecastData() {
             IEnumerable<GetWeatherForecastDataDTO> oWeatherForecastData = oService.GetAllForecasts();

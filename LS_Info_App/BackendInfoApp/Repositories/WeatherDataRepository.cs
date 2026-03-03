@@ -15,19 +15,31 @@ namespace BackendInfoApp.Repositories {
             Dispose();
         }
 
-        public bool GetByID(int nID) {
-            if (oContext.WeatherData.Find(nID) != null) { 
+        /// <summary>
+        /// Überprüft, ob ein WeatherDataEntity in der Datenbank vorhanden ist und gibt true zurück, wenn dies der Fall ist, andernfalls false
+        /// </summary>
+        /// <returns></returns>
+        public bool GetNewestWeatherDataBool() {
+            if (oContext.WeatherData.OrderByDescending(w => w.nId).FirstOrDefault() != null) { 
                 return true;
             }
             return false;
         }
 
-        public IEnumerable<WeatherForecastDataEntity> GetAllWeatherForecasts() {
-            return oContext.WeatherForecasts;
-        }
-
+        /// <summary>
+        /// Gibt das neuste WeatherDataEntity aus der Datenbank zurück
+        /// </summary>
+        /// <returns></returns>
         public WeatherDataEntity? GetNewestWeatherData() {
             return oContext.WeatherData.OrderByDescending(w => w.nId).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gibt alle WeatherForecastDataEntities zurück, die in der Datenbank gespeichert sind
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<WeatherForecastDataEntity> GetAllWeatherForecasts() {
+            return oContext.WeatherForecasts;
         }
 
         /// <summary>
@@ -45,12 +57,12 @@ namespace BackendInfoApp.Repositories {
         /// <summary>
         /// Erstellt ein ForecastEntity in der Datenbank
         /// </summary>
-        /// <param name="oEntityToAdd">Die von der Datenbank generierte ID des Entity</param>
+        /// <param name="voEntitiesToAdd">Die von der Datenbank generierte ID des Entity</param>
         /// <returns></returns>
-        public IEnumerable<int> CreateWeatherForecast(List<WeatherForecastDataEntity> voEntityiesToAdd)
+        public IEnumerable<int> CreateWeatherForecast(List<WeatherForecastDataEntity> voEntitiesToAdd)
         {
             List<int> vnIds = new List<int>();
-            foreach (var oEntity in voEntityiesToAdd)
+            foreach (var oEntity in voEntitiesToAdd)
             {
                 EntityEntry<WeatherForecastDataEntity> oEntry = oContext.WeatherForecasts.Add(oEntity);
                 vnIds.Add(oEntry.Entity.nId);
@@ -59,6 +71,11 @@ namespace BackendInfoApp.Repositories {
             return vnIds;
         }
         
+        /// <summary>
+        /// Updated das übergebene WeatherDataEntity in der Datenbank
+        /// </summary>
+        /// <param name="oEntity"></param>
+        /// <returns></returns>
         public WeatherDataEntity  UpdateWeatherData(WeatherDataEntity oEntity) {
             EntityEntry<WeatherDataEntity> oEntry = oContext.WeatherData.Update(oEntity);
             oContext.SaveChanges();
@@ -66,13 +83,22 @@ namespace BackendInfoApp.Repositories {
             return oEntry.Entity;
         }
 
-        public WeatherForecastDataEntity UpdateWeatherForcast(WeatherForecastDataEntity oEntity) {
-            EntityEntry<WeatherForecastDataEntity> oEntry = oContext.WeatherForecasts.Update(oEntity);
+        /// <summary>
+        /// Updated das übergebene WeatherForecastDataEntity in der Datenbank
+        /// </summary>
+        /// <param name="oForecastEntity"></param>
+        /// <returns></returns>
+        public WeatherForecastDataEntity UpdateWeatherForcast(WeatherForecastDataEntity oForecastEntity) {
+            EntityEntry<WeatherForecastDataEntity> oEntry = oContext.WeatherForecasts.Update(oForecastEntity);
             oContext.SaveChanges();
             
             return  oEntry.Entity;
         }
 
+        /// <summary>
+        /// Implementierung des Dispose-Patterns, um sicherzustellen, dass der DbContext ordnungsgemäß freigegeben wird
+        /// </summary>
+        /// <param name="bDisposing"></param>
         protected virtual void Dispose(bool bDisposing) {
             if (!bDisposedValue) {
                 if (bDisposing) {
