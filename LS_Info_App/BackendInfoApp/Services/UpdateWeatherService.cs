@@ -28,7 +28,7 @@ namespace BackendInfoApp.Services {
 
         ~UpdateWeatherService()
         {
-            m_oClient.Dispose();    
+            m_oHandler.Dispose();
             m_oClient.Dispose();
         }
 
@@ -130,8 +130,8 @@ namespace BackendInfoApp.Services {
                                 float dAvgTempC = (float)oForecastDays[i].SelectToken("day").SelectToken("avgtemp_c");
                                 string sConditionForecast = (string)oForecastDays[i].SelectToken("day").SelectToken("condition").SelectToken("text");
                                 
-                                 oForecastData.Add(new WeatherForecastDataEntity(sConditionForecast,  dMaxTempC,
-                                     dMinTempC, dAvgTempC, oForDate.ToUniversalTime(), sCity, sCountry));
+                                 oForecastData.Add(new WeatherForecastDataEntity(i, sCity, sCountry, sConditionForecast,  dMaxTempC,
+                                     dMinTempC, dAvgTempC, oForDate.ToUniversalTime()));
                             }
                         }
                     }

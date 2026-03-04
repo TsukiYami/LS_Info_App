@@ -11,13 +11,13 @@
             this.oForDate = oForDate;
         }
 
-        public WeatherForecastDataEntity(string condition, float maxtemp_c, float mintemp_c, float avgtemp_c, DateTime oForDate, string city = "Bremen", string country = "Germany") {
-            this.sCity = city;
-            this.sCountry = country;
-            this.sConditionText = condition;
-            this.dMaxTempC = maxtemp_c;
-            this.dMinTempC = mintemp_c;
-            this.dAvgTempC = avgtemp_c;
+        public WeatherForecastDataEntity(string sCondition, float dMaxtemp_c, float dMintemp_c, float dAvgtemp_c, DateTime oForDate, string sCity = "Bremen", string sCountry = "Germany") {
+            this.sCity = sCity;
+            this.sCountry = sCountry;
+            this.sConditionText = sCondition;
+            this.dMaxTempC = dMaxtemp_c;
+            this.dMinTempC = dMintemp_c;
+            this.dAvgTempC = dAvgtemp_c;
             this.oForDate = oForDate;
         }
         public int nId { get; set; }

@@ -36,6 +36,6 @@ namespace Entities.Entities
         public float dWindKph { get; set; }
         public string sWindDir { get; set; }
         public float dFeelsLikeC { get; set; }
-        public DateTime zRecordedAt { get; private set; } = DateTime.UtcNow;
+        public DateTime zRecordedAt { get; set; } = DateTime.UtcNow;
     }
 }

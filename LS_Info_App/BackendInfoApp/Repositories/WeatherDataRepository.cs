@@ -79,10 +79,19 @@ namespace BackendInfoApp.Repositories {
         /// <param name="oEntity"></param>
         /// <returns></returns>
         public WeatherDataEntity UpdateWeatherData(WeatherDataEntity oEntity) {
-            EntityEntry<WeatherDataEntity> oEntry = oContext.WeatherData.Update(oEntity);
+            WeatherDataEntity oEntry = oContext.WeatherData.Where(e => e.nId == oEntity.nId).FirstOrDefault();
+
+            oEntry.sCity = oEntity.sCity;
+            oEntry.sCountry = oEntity.sCountry;
+            oEntry.sConditionText = oEntity.sConditionText;
+            oEntry.dFeelsLikeC = oEntity.dFeelsLikeC;
+            oEntry.dTempC = oEntity.dTempC;
+            oEntry.dWindKph = oEntity.dWindKph;
+            oEntry.zRecordedAt = oEntity.zRecordedAt;
+
             oContext.SaveChanges();
             
-            return oEntry.Entity;
+            return oEntry;
         }
 
         /// <summary>
@@ -90,25 +99,21 @@ namespace BackendInfoApp.Repositories {
         /// </summary>
         /// <param name="oForecastEntity"></param>
         /// <returns></returns>
-        /*public WeatherForecastDataEntity UpdateWeatherForecast(WeatherForecastDataEntity oForecastEntity) {
-            int nRowsChanged = oContext.WeatherForecasts.Where(e => e.zRecordedAt < DateTime.UtcNow).ExecuteUpdate;
-            //EntityEntry<WeatherForecastDataEntity> oEntry = oContext.WeatherForecasts.Update(oForecastEntity);
-            oContext.SaveChanges();
-            
-            return  oEntry.Entity;
-        }*/
+        public WeatherForecastDataEntity UpdateWeatherForecast(WeatherForecastDataEntity oForecastEntity) {
+            WeatherForecastDataEntity oEntry = oContext.WeatherForecasts.Where(e => e.nId == oForecastEntity.nId).FirstOrDefault();
 
-        /// <summary>
-        /// Updated das übergebene WeatherForecastDataEntity in der Datenbank
-        /// </summary>
-        /// <param name="oForecastEntity"></param>
-        /// <returns></returns>
-        public int UpdateWeatherForecast(WeatherForecastDataEntity oForecastEntity) {
-            int nRowsChanged = oContext.WeatherForecasts.Where(e => e.nId == oForecastEntity.nId).ExecuteUpdate(s => s.SetProperty(e => e.zRecordedAt = oForecastEntity.zRecordedAt, e => e.dMinTempC = oForecastEntity.dMinTempC, e => e.));
-            //EntityEntry<WeatherForecastDataEntity> oEntry = oContext.WeatherForecasts.Update(oForecastEntity);
+            oEntry.sCity = oForecastEntity.sCity;
+            oEntry.sCountry = oForecastEntity.sCountry;
+            oEntry.sConditionText = oForecastEntity.sConditionText;
+            oEntry.zRecordedAt = oForecastEntity.zRecordedAt;
+            oEntry.oForDate = oForecastEntity.oForDate;
+            oEntry.dMaxTempC = oForecastEntity.dMaxTempC;
+            oEntry.dMinTempC = oForecastEntity.dMinTempC;
+            oEntry.dAvgTempC = oForecastEntity.dAvgTempC;
+
             oContext.SaveChanges();
 
-            return nRowsChanged;
+            return oEntry;
         }
 
         /// <summary>
