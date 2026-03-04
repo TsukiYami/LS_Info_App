@@ -24,8 +24,8 @@
         public string sCity { get; set; }
         public string sCountry { get; set; }
         public string sConditionText { get; set; }
-        public DateTime zRecordedAt { get; private set; } = DateTime.UtcNow;
-        public DateTime oForDate { get; private set; }
+        public DateTime zRecordedAt { get; set; } = DateTime.UtcNow;
+        public DateTime oForDate { get; set; }
         public float dMaxTempC { get; set; }
         public float dMinTempC { get; set; }
         public float dAvgTempC { get; set; }

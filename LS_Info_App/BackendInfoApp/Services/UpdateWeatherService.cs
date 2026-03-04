@@ -69,13 +69,14 @@ namespace BackendInfoApp.Services {
                     if (oRepository.GetNewestWeatherDataBool()) {
                         oRepository.UpdateWeatherData(oListOfDataEntities.Item1);
                         foreach (WeatherForecastDataEntity oEntity in oListOfDataEntities.Item2) {
-                            oRepository.UpdateWeatherForcast(oEntity);
+                            oRepository.UpdateWeatherForecast(oEntity);
                         }
+                        m_oLogger.LogInformation("Wetterdaten wurden aktualisiert");
                     } else {
                         oRepository.CreateWeatherDataEntry(oListOfDataEntities.Item1);
                         oRepository.CreateWeatherForecast(oListOfDataEntities.Item2);
+                        m_oLogger.LogInformation("Wetterdaten wurden eingepflegt");
                     }
-                    m_oLogger.LogInformation("Wetterdaten wurden aktualisiert");
                 } else {
                     m_oLogger.LogWarning("Wetterdaten konnten nicht aktualisiert werden");
                 }
