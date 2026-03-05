@@ -15,6 +15,7 @@ namespace FrontendInfoApp.Pages {
 
         public MainPage() {
             InitializeComponent();
+            LoadWeatherData();
             SetTimer();
         }
 
