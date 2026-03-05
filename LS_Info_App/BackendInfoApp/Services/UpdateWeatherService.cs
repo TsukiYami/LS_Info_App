@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using BackendInfoApp.DB;
 using BackendInfoApp.Repositories;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackendInfoApp.Services {
     public class UpdateWeatherService : BackgroundService {
@@ -124,14 +125,14 @@ namespace BackendInfoApp.Services {
                             
                             for (int i = 0; i < oForecastDays.Count; i++)
                             {
-                                DateTime oForDate = (DateTime)oForecastDays[i].SelectToken("date");
+                                DateOnly oForDate = DateOnly.FromDateTime((DateTime)oForecastDays[i].SelectToken("date"));
                                 float dMaxTempC = (float)oForecastDays[i].SelectToken("day").SelectToken("maxtemp_c");
                                 float dMinTempC = (float)oForecastDays[i].SelectToken("day").SelectToken("mintemp_c");
                                 float dAvgTempC = (float)oForecastDays[i].SelectToken("day").SelectToken("avgtemp_c");
                                 string sConditionForecast = (string)oForecastDays[i].SelectToken("day").SelectToken("condition").SelectToken("text");
                                 
                                  oForecastData.Add(new WeatherForecastDataEntity(i, sCity, sCountry, sConditionForecast,  dMaxTempC,
-                                     dMinTempC, dAvgTempC, oForDate.ToUniversalTime()));
+                                     dMinTempC, dAvgTempC, oForDate));
                             }
                         }
                     }

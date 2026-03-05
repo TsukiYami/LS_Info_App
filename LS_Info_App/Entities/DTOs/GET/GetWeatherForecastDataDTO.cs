@@ -1,6 +1,6 @@
 ﻿namespace Entities.DTOs.GET {
     public class GetWeatherForecastDataDTO {
-        public GetWeatherForecastDataDTO(int nId, string sCity, string sCountry, string sConditionText, float dMaxTempC, float dMinTempC, float dAvgTempC, DateTime oForDate) {
+        public GetWeatherForecastDataDTO(int nId, string sCity, string sCountry, string sConditionText, float dMaxTempC, float dMinTempC, float dAvgTempC, DateOnly oForDate) {
             this.nId = nId;
             this.sCity = sCity;
             this.sCountry = sCountry;
@@ -16,7 +16,7 @@
         public string sCountry { get; protected set; }
         public string sConditionText { get; protected set; }
         public DateTime oRecordedAt { get; protected set; } = DateTime.UtcNow;
-        public DateTime oForDate { get; private set; } 
+        public DateOnly oForDate { get; private set; } 
         public float dMaxTempC { get; private set; }
         public float dMinTempC { get; private set; }
         public float dAvgTempC { get; private set; }
