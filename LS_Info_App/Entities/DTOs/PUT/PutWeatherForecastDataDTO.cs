@@ -17,6 +17,6 @@
         public float dMaxTempC { get; private set; }
         public float dMinTempC { get; private set; }
         public float dAvgTempC { get; private set; }
-        public DateTime oForDate { get; private set; }
+        public DateOnly oForDate { get; private set; }
     }
 }
