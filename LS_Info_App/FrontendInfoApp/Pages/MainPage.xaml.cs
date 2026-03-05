@@ -68,6 +68,9 @@ namespace FrontendInfoApp.Pages {
             }
         }
 
+
+
+
         private void SetBackground(string fileName) {
             var uri = new Uri($"pack://application:,,,/Dateien/{fileName}", UriKind.Absolute);
 
