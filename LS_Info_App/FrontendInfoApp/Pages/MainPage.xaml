@@ -46,7 +46,7 @@
             Grid.Row="0"
             Grid.RowSpan="3"
             Grid.Column="0"
-            Grid.ColumnSpan="2"
+            Grid.ColumnSpan="1"
             Margin="6"
             BorderBrush="White"
             CornerRadius="7">
@@ -66,8 +66,8 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
 
@@ -93,19 +93,28 @@
                         TextWrapping="Wrap" />
                 </StackPanel>
 
+
+
+
                 <!--  Temperatur  -->
                 <Viewbox
                     Grid.Row="2"
                     Margin="0,8,0,8"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Bottom">
                     <TextBlock
                         x:Name="Temperature"
                         Background="Transparent"
-                        FontSize="38"
+                        FontSize="60"
                         Foreground="White"
                         Text="" />
                 </Viewbox>
+
+
+
+
+
+
 
                 <!--  Condition, FeelsLike  -->
                 <StackPanel
@@ -143,9 +152,41 @@
                         Opacity="0.95"
                         TextWrapping="Wrap" />
                 </StackPanel>
-                
-                
-                
+
+
+
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="1"           
+            Margin="6"
+            BorderBrush="White"
+            CornerRadius="7">
+
+
+            <Border.Background>
+                <SolidColorBrush Opacity="0.6" Color="#3F3F46" />
+            </Border.Background>
+
+            <!--  Layout  -->
+            <Grid Margin="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    x:Name="WeatherIcon"
+                    Width="200"
+                    Height="200"                  
+                    Stretch="UniformToFill"
+                     />
             </Grid>
         </Border>
 
@@ -172,7 +213,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100*" />
                     <ColumnDefinition Width="100*" />
-                </Grid.ColumnDefinitions>             
+                </Grid.ColumnDefinitions>
 
                 <StackPanel
                     Grid.Row="0"
@@ -192,7 +233,7 @@
                         x:Name="WindSpeed"
                         Grid.Row="0"
                         Grid.Column="0"
-                        Grid.ColumnSpan="2"                       
+                        Grid.ColumnSpan="2"
                         Background="Transparent"
                         FontSize="40"
                         Foreground="White"
@@ -203,10 +244,10 @@
                 <StackPanel
                     Grid.Row="0"
                     Grid.RowSpan="2"
+                    Grid.Column="1"
                     Margin="0,6,0,0"
                     VerticalAlignment="Center"
-                    Orientation="Vertical"
-                    Grid.Column="1">
+                    Orientation="Vertical">
 
                     <TextBlock
                         FontSize="15"
@@ -218,7 +259,7 @@
                         x:Name="WindDirectory"
                         Grid.Row="1"
                         Grid.Column="0"
-                        Grid.ColumnSpan="2"                     
+                        Grid.ColumnSpan="2"
                         Background="Transparent"
                         FontSize="40"
                         Foreground="White"
@@ -259,9 +300,10 @@
                     x:Name="WeatherForecastList"
                     Grid.RowSpan="3"
                     Grid.ColumnSpan="2"
-                    Margin="6"
+                    Margin="2"
                     Background="Transparent"
-                    FontSize="10"
+                    BorderBrush="Transparent"
+                    FontSize="15"
                     Foreground="White"
                     ScrollViewer.VerticalScrollBarVisibility="Auto" />
             </Grid>

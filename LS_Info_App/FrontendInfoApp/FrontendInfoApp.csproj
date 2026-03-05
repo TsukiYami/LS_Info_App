@@ -13,6 +13,18 @@
     <None Remove="Dateien\Foggy.png" />
     <None Remove="Dateien\Storm.png" />
     <None Remove="Dateien\Sunny.png" />
+    <None Remove="Dateien\weather-cloudy-custom.png" />
+    <None Remove="Dateien\weather-cloudy.png" />
+    <None Remove="Dateien\weather-lightning-rainy-custom.png" />
+    <None Remove="Dateien\weather-lightning.png" />
+    <None Remove="Dateien\weather-partly-cloudy-custom.png" />
+    <None Remove="Dateien\weather-partly-cloudy.png" />
+    <None Remove="Dateien\weather-pouring-custom.png" />
+    <None Remove="Dateien\weather-pouring.png" />
+    <None Remove="Dateien\weather-snowy-custom.png" />
+    <None Remove="Dateien\weather-snowy.png" />
+    <None Remove="Dateien\weather-sunny-custom.png" />
+    <None Remove="Dateien\weather-sunny.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +40,12 @@
     <Resource Include="Dateien\Foggy.png" />
     <Resource Include="Dateien\Storm.png" />
     <Resource Include="Dateien\Sunny.png" />
+    <Resource Include="Dateien\weather-cloudy-custom.png" />
+    <Resource Include="Dateien\weather-lightning-rainy-custom.png" />
+    <Resource Include="Dateien\weather-partly-cloudy-custom.png" />
+    <Resource Include="Dateien\weather-pouring-custom.png" />
+    <Resource Include="Dateien\weather-snowy-custom.png" />
+    <Resource Include="Dateien\weather-sunny-custom.png" />
   </ItemGroup>
 
 </Project>

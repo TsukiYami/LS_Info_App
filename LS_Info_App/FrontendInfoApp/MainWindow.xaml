@@ -39,16 +39,6 @@
                 <Path Data="M20,14H4V10H20" Fill="Black" />
             </Button>
 
-            <Button
-                x:Name="Maximieren"
-                Width="30"
-                Background="Transparent"
-                BorderThickness="0"
-                Click="Maximize_Click"
-                Cursor="Hand"
-                Foreground="White">
-                <Path Data="M4,4H20V20H4V4M6,8V18H18V8H6Z" Fill="Black" />
-            </Button>
 
             <Button
                 x:Name="Schließen"
